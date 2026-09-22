@@ -29,6 +29,7 @@ public class JacksonConfiguration {
       .configure(DeserializationFeature.FAIL_ON_MISSING_EXTERNAL_TYPE_ID_PROPERTY, false)
       .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
       .configure(MapperFeature.REQUIRE_TYPE_ID_FOR_SUBTYPES, true)
+      .configure(MapperFeature.DEFAULT_VIEW_INCLUSION, true)
       .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
       .configure(StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION, true)
       .changeDefaultPropertyInclusion(incl -> incl

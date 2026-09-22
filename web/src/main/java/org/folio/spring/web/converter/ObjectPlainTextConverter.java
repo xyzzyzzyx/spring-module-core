@@ -16,25 +16,24 @@
 
 package org.folio.spring.web.converter;
 
+import static org.folio.spring.web.utility.RequestHeaderUtility.APP_JSON_PLUS;
+import static org.folio.spring.web.utility.RequestHeaderUtility.compatibleWith;
 import static org.springframework.http.MediaType.ALL;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.TEXT_PLAIN;
-import static org.folio.spring.web.utility.RequestHeaderUtility.APP_JSON_PLUS;
-import static org.folio.spring.web.utility.RequestHeaderUtility.compatibleWith;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.http.converter.AbstractHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
+import org.jspecify.annotations.Nullable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
-import org.springframework.lang.Nullable;
+import org.springframework.http.converter.AbstractHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.util.Assert;
 import org.springframework.util.StreamUtils;
 

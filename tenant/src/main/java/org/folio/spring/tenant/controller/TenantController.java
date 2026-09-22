@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import org.folio.spring.tenant.annotation.TenantHeader;
 import org.folio.spring.tenant.hibernate.HibernateSchemaService;
 import org.folio.spring.tenant.model.request.TenantAttributes;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,34 +23,43 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/_/tenant")
 public class TenantController {
 
-  @Autowired
   private HibernateSchemaService hibernateSchemaService;
+
+  /**
+   * Initializer.
+   *
+   * @param hibernateSchemaService The hibernateSchemaService instance.
+   */
+  public TenantController(HibernateSchemaService hibernateSchemaService) {
+
+    this.hibernateSchemaService = hibernateSchemaService;
+  }
 
   @PostMapping
   public ResponseEntity<String> create(
     @TenantHeader String tenant,
     @RequestBody @Validated TenantAttributes attributes,
-    @RequestHeader(value = "accept", required = false) String accept
+    @RequestHeader(required = false) String accept
   ) throws SQLException, IOException {
     if (unsupportedAccept(accept, MediaType.TEXT_PLAIN)) {
       return ResponseEntity.status(406).build();
     }
 
     hibernateSchemaService.createTenant(tenant);
-    return new ResponseEntity<String>("Success", CREATED);
+    return new ResponseEntity<>("Success", CREATED);
   }
 
   @DeleteMapping
   public ResponseEntity<Void> delete(
     @TenantHeader String tenant,
-    @RequestHeader(value = "accept", required = false) String accept
+    @RequestHeader(required = false) String accept
   ) throws SQLException {
     if (unsupportedAccept(accept, MediaType.TEXT_PLAIN)) {
       return ResponseEntity.status(406).build();
     }
 
     hibernateSchemaService.deleteTenant(tenant);
-    return new ResponseEntity<Void>(NO_CONTENT);
+    return new ResponseEntity<>(NO_CONTENT);
   }
 
 }
